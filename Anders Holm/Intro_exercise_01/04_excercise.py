@@ -7,9 +7,9 @@ def f_median(a,b,c):
     return d
 
 def main():
-    a = int(input('Enter first number: '))
-    b = int(input('Enter first second: '))
-    c = int(input('Enter first third: '))
+    a = int(input('Enter your first number: '))
+    b = int(input('Enter your second number: '))
+    c = int(input('Enter your third number: '))
 
     print('The median number is',f_median(a,b,c))
 
