@@ -6,6 +6,8 @@ length = float(input("Enter length in meters: ")) #this will prompt the user to 
 print("Width in meters is: " , width) #The width is displayed in the terminal
 print("Length in meters is " , length ) #The length is displayed in the terminal
 
-areaRoom = width*length #width times length gives the area of the room
+#width times length gives the area of the room
+areaRoom = width*length 
 
-print("The area of the room in square meters is: " , areaRoom) #printing the area in terminal
+#printing the area in terminal
+print("The area of the room in square meters is: " , areaRoom) 
