@@ -71,4 +71,22 @@ fuck = ["abe", "nisse", "fisk", "hamster"]
 print(listToList(numbers, fuck, 2))
 
 
-# %%
+# %% Opgave 7
+# Repeat the previous exercise with tuples.
+
+def tupToTup(a, b, pos):
+    #convert the Tuples to Lists
+    aList = list(a)
+    bList =list(b)
+
+    # Reverse the list, for easier access to the end-index
+    aList.reverse()
+    # Add the "back" of a-list, to the desired positon in the b-list (not deleting any entries)
+    bList[pos:pos] = [aList[0]]
+    return tuple(bList)
+
+
+numbers = (12, 32, 5, 4)
+fuck = ("abe", "nisse", "fisk", "hamster")
+
+print(tupToTup(numbers, fuck, 2))
