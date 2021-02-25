@@ -13,21 +13,18 @@ def get_pswd():
 
 def check_pswd(pswdInput):
 
-    if not any(pswdInput.islower() for x in pswdInput):
-        return 1
-    if not any(pswdInput.isupper() for x in pswdInput):
-        return 2
-    if not any(pswdInput.isnumeric() for x in pswdInput):
-        return 3
-    if len(pswdInput) >= 8:
-        return 4
+    if not (pswdInput.islower() for x in pswdInput):
+        return False
+    elif not (pswdInput.isupper() for x in pswdInput):
+        return False
+    elif not (pswdInput.isnumeric() for x in pswdInput):
+        return False
+    elif not len(pswdInput) >= 8:
+        return False
+    else:
+        return True
 
 def main():
     print(check_pswd(get_pswd()))
 
 main()
-
-#mindst 8 tegn
-#mindst 1 lille bogstav
-#mindst 1 stor bogstav
-#mindst 1 tal
