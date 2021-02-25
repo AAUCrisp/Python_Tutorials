@@ -12,25 +12,25 @@
 #the parity bit should be 0 or 1. Display an appropriate error message if the user enters something
 #other than 8 bits.
 
-def enterBit(): 
-    a = input('Enter seven random bits: ')
-    return a
+def getInput():
+    while True:
+        stringInput = input("Enter 8-bit string in binary: ")
 
-userBit = enterBit()
-if userBit.isnumeric() == True:
-    if len(userBit) > 7:
-        print('ERROR - you entered to much')
-        enterBit()
-    elif len(userBit) == 7:
-        count = userBit.count("0")
-        if count%2 == 0:
-            print('The parity bit should be 1')
+        if len(stringInput) == 8:
+            if (stringInput.count("1") + stringInput.count("0")) != 8:
+                print("String does not consistent of 0 and 1")
+            else:
+                return stringInput
         else:
-            print('The parity bit should be 0')
-    elif len(userBit) < 7:
-        print('ERROR - you didnt type enough')
-        enterBit()
-else:
-    print('Error - try again')
-    print('Remember to only use bits')
-    enterBit()
+            print("Length of the string was not 8 bits. Try again.")
+
+def checkBits(stringInput):
+    if stringInput.count("1") % 2 == 0:
+        print("parity bit should be 0")
+    else:
+        print("Parity bit should be 1")
+
+def main():
+    checkBits(getInput())
+
+main()
