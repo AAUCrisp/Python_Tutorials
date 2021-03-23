@@ -7,9 +7,9 @@
 import socket
 
 # prefix 
-PORT = 1234
+PORT = 65432
 FORMAT = 'utf-8'
-SERVER_IP = socket.gethostbyname(socket.gethostname()) #gets the IP from this PC
+SERVER_IP = socket.gethostbyname(socket.gethostname()) #gets the IP from this PC IPv4 only
 BUFFER = 1024
 
 

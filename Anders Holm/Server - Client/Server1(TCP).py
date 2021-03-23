@@ -7,7 +7,7 @@ import socket
 
 # prefix 
 SERVER_IP = socket.gethostbyname(socket.gethostname())                          #gets the IP from this PC
-PORT = 1234                                                                     #Server port
+PORT = 65432                                                                     #Server port
 FORMAT = 'utf-8'                                            
 
 # set up
