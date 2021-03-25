@@ -2,6 +2,8 @@
 
 class Dog(object):
     
+
+
     #construtor
     def __init__(self, name, age):
 
@@ -13,6 +15,9 @@ class Dog(object):
     def speak(self):
         print('Hello, my name is', self.name, 'and I am', self.age, 'years old')
 
+    def talk(self):
+        print("Wuf wuf")
+
     def set_age(self, age):
         self.age = age
     
@@ -20,6 +25,17 @@ class Dog(object):
         return self.age
 
 
-tim = Dog('Balder', 8)
-tim.set_age(9)
-print(tim.get_age())
+
+class Cat(Dog): #inheritance from Dog class
+
+    #construtor
+    def __init__(self, name, age, color):
+        super().__init__(name, age)
+        self.color = color
+
+jim = Dog('Spring', 9)
+jim.talk()
+
+tim = Cat('Snow', 6,'grey')
+tim.speak()
+jim.talk()        
