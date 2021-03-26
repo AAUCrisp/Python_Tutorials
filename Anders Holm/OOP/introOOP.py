@@ -15,9 +15,11 @@ class Dog(object):
     def speak(self):
         print('Hello, my name is', self.name, 'and I am', self.age, 'years old')
 
-    def talk(self):
+    @classmethod
+    def talk(cls):
         print("Wuf wuf")
 
+    @staticmethod
     def set_age(self, age):
         self.age = age
     
@@ -38,4 +40,3 @@ jim.talk()
 
 tim = Cat('Snow', 6,'grey')
 tim.speak()
-jim.talk()        
