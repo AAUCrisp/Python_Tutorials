@@ -1,7 +1,7 @@
 
 # Imports
 import threading, socket, time, platform
-from djitellopy import Tello
+from djitellopy import tello
 import cv2
 
 # Variables 
@@ -19,7 +19,7 @@ TELLO_ADDR = ('192.168.10.1', 8889)
 UDP_server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 UDP_server_socket.bind(UDP_SERVER)
 me = tello.Tello()
-me.streamon()
+
 
 # UDP client
 UDP_client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -33,24 +33,26 @@ def recv():
             print ('\nExit . . .\n')
             break
 
-control_thread = threading.Thread(target=recv)
-control_thread.start()
-
-def videoStream():
+# Create vindow with videostream
+def video():
     while True:
-    img = me.get_frame_read().frame # get the 
-    #img = cv2.resize(img, (360,240))
-    cv2.imshow("image", img)
-    cv2.waitKey(1)
+        img = me.get_frame_read().frame
+        cv2.imshow("Live Stream", img)
+        cv2.waitKey(1)
+   
+def start():
+    control_thread = threading.Thread(target=recv)
+    control_thread.start()
 
-stream_thread = threading.Thread(target=videoStream)
-stream_thread.start()
+    me.streamon()
+    stream_thread = threading.Thread(target=video)
+    stream_thread.start()
+    video()
 
-# initi
-init = init.encode(encoding=FORMAT) 
-sent = UDP_client_socket.sendto(init, TELLO_ADDR)
+# init = init.encode(encoding=FORMAT) 
+# sent = UDP_client_socket.sendto(init, TELLO_ADDR)
 
-while True: 
+    while True:
         try:
             msg = input('')
 
@@ -67,5 +69,5 @@ while True:
             UDP_client_socket.close()  
             break
 
-
+start()
 
