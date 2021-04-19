@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import pygame
 from pygame.locals import *
 import time
@@ -6,7 +7,6 @@ from djitellopy import Tello
 # Start pygame
 pygame.init()
 
-# Loop until the user clicks the close button.
 done = False
 
 # Initialize the joysticks.
@@ -21,8 +21,7 @@ tello.takeoff()
 while not done:
     # Get count of joysticks.
     joystick_count = pygame.joystick.get_count()
-
-
+    
     # For each joystick:
     for i in range(joystick_count):
         joystick = pygame.joystick.Joystick(i)
@@ -38,7 +37,7 @@ while not done:
                 print("Button x has been pressed")
             if event.button == 3:
                 print("Button y has been pressed")
-                start = False
+                done = True
                 quit()
             if event.button == 6:
                 tello.takeoff()
