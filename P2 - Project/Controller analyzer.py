@@ -1,8 +1,11 @@
-#!/usr/bin/env python3
+
+
 import pygame
-from pygame.locals import *
+from pygame.locals import* 
 import time
 from djitellopy import Tello
+
+pygame.JOYBUTTONDOWN
 
 # Start pygame
 pygame.init()
@@ -28,7 +31,7 @@ while not done:
         joystick.init()
 
     for event in pygame.event.get():
-        if event.type == JOYBUTTONDOWN:
+        if event.type == pygame.JOYBUTTONDOWN:
             if event.button == 0:
                 print("Button A has been pressed")
             if event.button == 1:

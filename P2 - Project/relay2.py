@@ -2,10 +2,12 @@
 # Imports
 import threading, socket, time, platform
 from djitellopy import Tello
+import cv2
 
 # Variables 
 HEADER = 1024
 FORMAT = 'utf-8'
+init = 'command'
 
 HOST = ''
 PORT = 9000
@@ -16,6 +18,8 @@ TELLO_ADDR = ('192.168.10.1', 8889)
 # UDP server 
 UDP_server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 UDP_server_socket.bind(UDP_SERVER)
+me = tello.Tello()
+me.streamon()
 
 # UDP client
 UDP_client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -32,9 +36,19 @@ def recv():
 control_thread = threading.Thread(target=recv)
 control_thread.start()
 
-start = 'command'
-start = start.encode(encoding=FORMAT) 
-sent = UDP_client_socket.sendto(start, TELLO_ADDR)
+def videoStream():
+    while True:
+    img = me.get_frame_read().frame # get the 
+    #img = cv2.resize(img, (360,240))
+    cv2.imshow("image", img)
+    cv2.waitKey(1)
+
+stream_thread = threading.Thread(target=videoStream)
+stream_thread.start()
+
+# initi
+init = init.encode(encoding=FORMAT) 
+sent = UDP_client_socket.sendto(init, TELLO_ADDR)
 
 while True: 
         try:
