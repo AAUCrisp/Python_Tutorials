@@ -1,8 +1,7 @@
-#!/usr/bin/env python3
 import pygame
 from pygame.locals import *
 import time
-from djitellopy import Tello
+
 
 # Start pygame
 pygame.init()
@@ -12,13 +11,10 @@ done = False
 # Initialize the joysticks.
 pygame.joystick.init()
 
-tello = Tello()
-tello.connect()
-time.sleep(3)
-tello.takeoff()
 
 # -------- Main Program Loop -----------
 while not done:
+
     # Get count of joysticks.
     joystick_count = pygame.joystick.get_count()
     
@@ -40,10 +36,10 @@ while not done:
                 done = True
                 quit()
             if event.button == 6:
-                tello.takeoff()
+                print("start has been pressed")
+                
             if event.button == 7:
-                tello.land()
-
+                print("select has been pressed")
         if event.type == JOYAXISMOTION:
             if (joystick.get_axis(0) > 0.5) or (joystick.get_axis(0) < -0.5):
                 print("left thumbstock is moving left and right")
