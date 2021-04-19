@@ -50,3 +50,5 @@ while True:
         print ('\n . . .\n')
         UDP_client_socket.close()  
         break
+
+def start_up():
