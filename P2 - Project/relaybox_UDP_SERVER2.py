@@ -24,7 +24,7 @@ UDP_server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 UDP_server.bind(SS_UDP_ADDR)
 print('[LISTENING] Server is listen for incoming stats')
 
-# UDP server
+# UDP server that
 while True:
     data, addr = UDP_server.recvfrom(HEADER)
     print('Client IP Address:{}'.format(addr))
