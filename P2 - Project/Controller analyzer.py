@@ -1,0 +1,68 @@
+import pygame
+from pygame.locals import *
+import time
+from djitellopy import Tello
+
+# Start pygame
+pygame.init()
+
+# Loop until the user clicks the close button.
+done = False
+
+# Initialize the joysticks.
+pygame.joystick.init()
+
+tello = Tello()
+tello.connect()
+time.sleep(3)
+tello.takeoff()
+
+# -------- Main Program Loop -----------
+while not done:
+    # Get count of joysticks.
+    joystick_count = pygame.joystick.get_count()
+
+
+    # For each joystick:
+    for i in range(joystick_count):
+        joystick = pygame.joystick.Joystick(i)
+        joystick.init()
+
+    for event in pygame.event.get():
+        if event.type == JOYBUTTONDOWN:
+            if event.button == 0:
+                print("Button A has been pressed")
+            if event.button == 1:
+                print("Button B has been pressed")
+            if event.button == 2:
+                print("Button x has been pressed")
+            if event.button == 3:
+                print("Button y has been pressed")
+                start = False
+                quit()
+            if event.button == 6:
+                tello.takeoff()
+            if event.button == 7:
+                tello.land()
+
+        if event.type == JOYAXISMOTION:
+            if (joystick.get_axis(0) > 0.5) or (joystick.get_axis(0) < -0.5):
+                print("left thumbstock is moving left and right")
+                print(" ")
+            if (joystick.get_axis(1) > 0.5) or (joystick.get_axis(1) < -0.5):
+                print("left thumbstick is moving up and down")
+                print(" ")
+            if (joystick.get_axis(2) > 0):
+                print("Left Bumper")
+                print(" ")
+            if (joystick.get_axis(3) > 0.5) or (joystick.get_axis(3) < -0.5):
+                print("right thumbstick is moving left and right")
+                print(" ")
+            if (joystick.get_axis(4) > 0.5) or (joystick.get_axis(4) < -0.5):
+                print("right thumbstick is moving up and down")
+                print(" ")
+            if (joystick.get_axis(5) > 0):
+                print("Right Bumper")
+                print(" ")
+
+
