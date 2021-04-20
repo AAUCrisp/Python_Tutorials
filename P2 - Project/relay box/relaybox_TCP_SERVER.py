@@ -74,7 +74,7 @@ def tcp_client(conn, addr):
 def start():
     #tcp_socket.listen()
     tello.connect()
-    #conn, addr = tcp_socket.accept()
+    conn, addr = tcp_socket.accept()
     data, addr = udp_socket.recvfrom(HEADER)
     control_thread = threading.Thread(target=recv)
     thread_video = threading.Thread(target=udp_video, args=(data, addr))

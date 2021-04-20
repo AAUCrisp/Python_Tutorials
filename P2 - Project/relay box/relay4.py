@@ -65,5 +65,3 @@ thread_stats = threading.Thread(target=recv_state)
 thread_stats.start()
 thread_print = threading.Thread(target=state_print)
 thread_print.start()
-
-
