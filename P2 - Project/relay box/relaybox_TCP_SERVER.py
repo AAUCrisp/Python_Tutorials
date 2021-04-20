@@ -4,6 +4,7 @@ import threading, socket, time, cv2, platform
 from djitellopy import Tello
 
 
+
 # Varialbes
 FORMAT = 'utf-8'
 HEADER = 2048
