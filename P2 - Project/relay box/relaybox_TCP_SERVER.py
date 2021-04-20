@@ -1,7 +1,7 @@
 
 # Imported liberaies
 import threading, socket, time, cv2, platform
-from djitellopy import Tello
+from djitellopy import tello
 
 
 # Varialbes
@@ -31,11 +31,11 @@ tcp_socket.bind(ADDR)
 udp_socket.bind(VS_SERVER_ADDR)
 
 # Create Tello object
-tello = Tello()
+tello = tello.Tello()
 
 # handle UDP client
 def udp_video(data, addr):
-    video.streamon()
+    tello.streamon()
     data_stream = True
     while data_stream:
         img = tello.get_frame_read().frame # get the 
@@ -72,11 +72,9 @@ def tcp_client(conn, addr):
 
 
 def start():
-    tcp_socket.listen()
+    #tcp_socket.listen()
     tello.connect()
-    
-    tello.takeoff()
-    conn, addr = tcp_socket.accept()
+    #conn, addr = tcp_socket.accept()
     data, addr = udp_socket.recvfrom(HEADER)
     control_thread = threading.Thread(target=recv)
     thread_video = threading.Thread(target=udp_video, args=(data, addr))
