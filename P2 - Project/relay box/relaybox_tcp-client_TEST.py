@@ -4,7 +4,7 @@ HEADER = 64
 PORT = 9000
 FORMAT = 'utf-8'
 DISCONNECT_MESSAGE = "!DISCONNECT"
-SERVER = "192.168.56.1"
+SERVER = "172.31.147.180"
 ADDR = (SERVER, PORT)
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

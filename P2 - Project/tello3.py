@@ -52,7 +52,7 @@ while True:
        # print (version_init_num)
         if version_init_num == 3:
             msg = input(" ")
-        elif version_init_num == 2:co
+        elif version_init_num == 2:
             msg2 = input(" ")
         
         if not msg:
