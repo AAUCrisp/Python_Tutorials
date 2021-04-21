@@ -1,8 +1,11 @@
+from tkinter import *  
 from djitellopy import tello
 import cv2
 import threading
 import socket
 import time
+from PIL import ImageTk, Image
+import imageio
 
 FORMAT = 'utf-8'
 HOST = ''
@@ -15,17 +18,22 @@ dataStats = []
 UDP_client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 UDP_client_socket.bind(UDP_RELAY)
 
-
 tello = tello.Tello()
+root = Tk()
 tello.connect()
+root.title('Videostream')
 
-def video_stream():
+def video_streamGUI():
     tello.streamon()
     while True:
         img = tello.get_frame_read().frame # get the 
         #img = cv2.resize(img, (360,240))
         cv2.imshow("Live Stream", img)
         cv2.waitKey(1)
+        
+        
+video_streamGUI()
+root.mainloop()
 
 def control_drone():
     while True:
@@ -54,6 +62,7 @@ def recv_state():
             print ('\nExit . . .\n')
             break
 
+
 def state_print():
     time.sleep(5)
     print(dataStats[-1])
@@ -62,9 +71,3 @@ thread_video = threading.Thread(target=video_stream)
 thread_video.start()
 thread_control = threading.Thread(target=control_drone)
 thread_control.start()
-"""thread_stats = threading.Thread(target=recv_state)
-thread_stats.start()
-thread_print = threading.Thread(target=state_print)
-thread_print.start()"""
-
-
