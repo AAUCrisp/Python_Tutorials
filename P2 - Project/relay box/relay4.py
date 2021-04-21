@@ -6,7 +6,7 @@ import time
 
 FORMAT = 'utf-8'
 HOST = ''
-PORT = 8890
+PORT = 9000
 UDP_RELAY = (HOST,PORT)
 TELLO_ADDR = ('192.168.10.1', 8889)
 
