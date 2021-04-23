@@ -38,7 +38,7 @@ middle = (n1 + n2 + n3) - (minimum + maximum)
 
 print("In sorted order they're " , minimum, middle, maximum)
 
-# %% Opgave 4 & 5
+# %% -- Opgave 4 & 5 --
 # Opgave 4: Write a function that takes three numbers as parameters and returns the median value of those parameters as its result. Include a main program that reads three values from the user and displays their median.
 # Opgave 5: Write and test a Python program that access a function inside a function.
 
@@ -55,7 +55,7 @@ def main():
 
 main()
 
-# %% Opgave 6
+# %% -- Opgave 6 --
 # Write and test a Python program that access a function inside a function.
 
 def listToList(a, b, pos):
@@ -71,7 +71,7 @@ fuck = ["abe", "nisse", "fisk", "hamster"]
 print(listToList(numbers, fuck, 2))
 
 
-# %% Opgave 7
+# %% -- Opgave 7 --
 # Repeat the previous exercise with tuples.
 
 def tupToTup(a, b, pos):
