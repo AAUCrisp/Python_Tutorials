@@ -1,39 +1,28 @@
-import socket 
+import socket
 import threading
 
-HEADER = 2048
-PORT = 9400
-SERVER = socket.gethostbyname(socket.gethostname())
-ADDR = (SERVER, PORT)
-FORMAT = 'utf-8'
+host = 'localhost'
+port = 9400        
+addr = (host, port)
+bufferSize = 2048  
+forMat = 'utf-8'
 
+serverSock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM) # Creating socket
+serverSock.bind(addr)    # Bind socket to the address
 
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(ADDR)
+print('Z server is up and running...')
+print('Listening for relayed datagrams in port '+str(port))
 
-def handle_client(conn, addr):
-    print(f"[+] Y user {addr} connected.")
+def receiveMessage():
+    bytesAddressPair = serverSock.recvfrom(bufferSize)
+    message = bytesAddressPair[0]
+    #address = bytesAddressPair[1]
+    clientMsg = "Y is relaying the following message from X: {}".format(message)
+    #clientIP  = "Client IP Address:{}".format(address)
+    print(clientMsg)
+    #print(clientIP)
+  
 
-    connected = True
-    while connected:
-        msg = conn.recv(HEADER).decode(FORMAT)
-        print(f"[{addr}] {msg}")
-        conn.send("Z received message".encode(FORMAT))       
-
-    conn.close()
-        
-
-def start():
-    server.listen()
-    print(f"[LISTENING] Server listen for Z")
-    while True:
-        conn, addr = server.accept()
-        thread = threading.Thread(target=handle_client, args=(conn, addr))
-        thread.start()
-        print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 6}")
-
-SERVER_IP = socket.gethostbyname(socket.gethostname())
-print('Your IP address: ' + SERVER_IP + '\n\n')
-
-print("[STARTING] Z is starting...")
-start()
+while True:
+    receiveMessage()
+   

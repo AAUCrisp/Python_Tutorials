@@ -12,7 +12,7 @@ Z_SERVER = '192.168.56.1'
 Z_ADDR = (Z_SERVER, Z_PORT)
 
 y_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-z_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+z_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 y_server.bind(Y_ADDR)
 
 
@@ -36,10 +36,10 @@ def send(message):
     z_server.send(message.encode(FORMAT))
 
 def start():
-    z_server.connect(Z_ADDR)
-    print('[+] Connected to Z')
+    z_client.connect(Z_ADDR)
+    print('[+] Client Y connected to server DZ')
     y_server.listen()
-    print("[LISTENING] Server is listening for X")
+    print("[LISTENING] Server is listening for client X")
     while True:
         conn, addr = y_server.accept()
         x = threading.Thread(target=handle_client, args=(conn, addr))
