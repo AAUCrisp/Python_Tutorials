@@ -56,7 +56,7 @@ def fileCopy(fileName, fileFrom, fileTo):
         print("The folder already exists. Trying to copy image...")
         time.sleep(2)
 
-    #copying image from old folder to newly created folder and prints the time, unless  already exists. 
+    #copying image from old folder to newly created folder and prints the time, unless image already exists. 
     if os.path.exists(fileTo+"\\"+fileName) == False:
         shutil.copy(fileFrom+"\\"+fileName,fileTo+"\\"+fileName)
         shutil.copy(fileFrom+"\\"+fileName,fileTo+"\\"+fileName)
@@ -82,7 +82,7 @@ def updateDB(sql):
     con.close()
 
 
-#  ---  Fuction to fetch all from a table  ---
+#  ---  Function to fetch all from a table  ---
 def listAll(tableName):
     sql = 'SELECT * FROM ' + tableName
 
@@ -111,4 +111,4 @@ createTable("Image", ["fileName TEXT", "filePath TEXT"])
 dbFileInsert("Image", r"fisk1.jpg", r"\content\images")
 dbFileInsert("Image", r"fisk2.jpg", r"\content\images")
 listAll("Image")
-#fileCopy("fisk1.jpg",r"C:\\FiskeFolder",r"C:\\NyFiskeFolder")
+fileCopy("fisk1.jpg",r"C:\\FiskeFolder",r"C:\\NyFiskeFolder")
