@@ -9,7 +9,7 @@ from pygame.locals import *
 
 FORMAT = 'utf-8'
 HOST = ''
-PORT = 9000
+PORT = 9400
 UDP_RELAY = (HOST,PORT)
 TELLO_ADDR = ('192.168.10.1', 8889)
 
@@ -119,6 +119,7 @@ def control_drone():
             # Send data
             #msg = msg.encode(encoding=FORMAT) 
             #sent = UDP_client_socket.sendto(msg, TELLO_ADDR)
+
 
 def recv_state():
     while True: 

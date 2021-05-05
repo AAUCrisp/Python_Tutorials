@@ -1,9 +1,9 @@
 import socket
 
-port = 9999
+port = 9400
 bufferSize = 2048
 forMat = 'utf-8'
-host = 'localhost'
+host = '192.168.1.113'
 addr = (host, port)
 
 clientSocket = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)

@@ -2,12 +2,12 @@ import socket
 
 bufferSize = 2048
 y_Port = 9999
-y_Server = 'localhost' 
+y_Server = '192.168.1.113'
 y_Addr = (y_Server, y_Port)
 forMat = 'utf-8'
 
 z_Port = 9400
-z_Server = 'localhost'#socket.gethostbyname(socket.gethostname())
+z_Server = '192.168.1.128'#socket.gethostbyname(socket.gethostname())
 z_Addr = (z_Server, z_Port)
 
 y_ServerSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -29,6 +29,7 @@ def receiveRelayFromX():
         bytesToSend = str.encode(clientMsg)
         z_ClientSock.sendto(bytesToSend, z_Addr)
         print("The message "+clientMsg +"has been relayed to the Z-server!")
+
 
 
 receiveRelayFromX()
