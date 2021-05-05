@@ -1,7 +1,7 @@
 import socket
 import threading
 
-host = 'localhost'
+host = socket.gethostbyname(socket.gethostname())
 port = 9400        
 addr = (host, port)
 bufferSize = 2048  
