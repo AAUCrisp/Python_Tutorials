@@ -1,70 +1,69 @@
 import socket, time, threading
-from djitellopy import tello
 
 BUFFER_SIZE = 2048
 FORMAT = 'utf-8'
-START_ERROR = 'Tello connection error'
 
 # Info connection between the user and the relaybox.
 RELAY_IP = ''
-UR_PORT = 9400 
-RELAY_ADDR = (RELAY_IP, UR_PORT)
+CMD_PORT = 8889
+STATE_PORT = 8890
+VIDEO_PORT = 11111
 
-TELLO_ADDR = ('192.168.10.1', 8889)
+TELLO_IP = '192.168.10.1'
+
+TELLO_ADDR = (TELLO_IP, CMD_PORT)
+
+# Relay addresses
+RELAY_CMD_ADDR = (RELAY_IP, CMD_PORT)
+RELAY_VIDEO_ADDR = (RELAY_IP, VIDEO_PORT)
+RELAY_STATE_ADDR = (RELAY_IP, STATE_PORT)
+
+# User addresses
+USER_CMD_ADDR = ('127.0.0.1', CMD_PORT)
+USER_VIDEO_ADDR = ('127.0.0.1', VIDEO_PORT)
+USER_STATE_ADDR = ('127.0.0.1', STATE_PORT)
 
 # Socket object 
-control_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # recice udp data to client
-video_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # send videofeed to user
-state_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # send state info to user
-control_udp.bind(RELAY_ADDR)
+control_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # 
+control_udp.bind(RELAY_CMD_ADDR) # 
 
-tello = tello.Tello() # access the tello libary 
+video_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # 
+video_udp.bind(RELAY_STATE_ADDR) # 
 
+state_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # 
+state_udp.bind(RELAY_STATE_ADDR) # 
 
 # sends the users control commands to the tello drone
-def forward_control_cmd(data):
-    data = data.decode(FORMAT)
-    tello.send_command_without_return(data)
-        #control_udp.sendto(data, TELLO_ADDR)
-
-'''
+def forward_control_cmd():
+    data, addr = control_udp.recvfrom(BUFFER_SIZE) # recieve data from the user
+    control_udp.sendto(data, TELLO_ADDR) # sends cmd til tello drone
+   
 # sends the tello drones videofeed to the user
-def backward_videofeed(addr):
-    tello.streamon()
-    while True:
-        video_data = tello.get_frame_read().frame
-        video_udp.sendto(video_data, addr)
-        
+def backward_videofeed():
+    data, addr = video_udp.recvfrom(BUFFER_SIZE) # recieve data from the tello drone
+    video_udp.sendto(data, USER_VIDEO_ADDR) # sends videofeed to the user
+  
 # sends state info from tello drone to the user
-def backward_state(addr):
-    state_data = tello.udp_state_receiver()
-    video_udp.sendto(state_data, addr)
-'''
+def backward_state():
+    data, addr = state_udp.recvfrom(BUFFER_SIZE) # recieve data from the tello drone
+    state_udp.sendto(data, USER_STATE_ADDR) # sends state info to the user         
 
 
-        
-        
-        
+# main program
 def run_program():
 
     print('[RELAY BOX] Relay box is running')
-    print(f'Listening for incoming connections on port {UR_PORT}...\n')
+    print(f'Listening for incoming connections ...\n')
     
-    tello.connect()
+    # Start threads 
+    control_thread = threading.Thread(target=forward_control_cmd)
+    control_thread.start()
+    video_thread = threading.Thread(target=backward_videofeed)
+    video_thread.start()
+    state_thread = threading.Thread(target=backward_state)
+    state_thread.start()
 
-    while True:
-        data, addr = control_udp.recvfrom(BUFFER_SIZE)
-        print('\tIncoming text: {}'.format(data))  
+    print('All threads are running')
 
-        control_thread = threading.Thread(target=forward_control_cmd, args=(data, ))
-        control_thread.start()
-
-    '''
-        video_thread = threading.Thread(target=backward_videofeed, args=(addr, ))
-        video_thread.start()
-
-        state_thread = threading.Thread(target=backward_state, args=(addr, ))
-        state_thread.start()
-    '''
-
+    
 run_program()
