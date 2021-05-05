@@ -10,6 +10,7 @@ STATE_PORT = 8890
 VIDEO_PORT = 11111
 
 TELLO_IP = '192.168.10.1'
+USER_IP = '192.168.1.197'
 
 TELLO_ADDR = (TELLO_IP, CMD_PORT)
 
@@ -19,34 +20,52 @@ RELAY_VIDEO_ADDR = (RELAY_IP, VIDEO_PORT)
 RELAY_STATE_ADDR = (RELAY_IP, STATE_PORT)
 
 # User addresses
-USER_CMD_ADDR = ('127.0.0.1', CMD_PORT)
-USER_VIDEO_ADDR = ('127.0.0.1', VIDEO_PORT)
-USER_STATE_ADDR = ('127.0.0.1', STATE_PORT)
+USER_CMD_ADDR = (USER_IP, CMD_PORT)
+USER_VIDEO_ADDR = (USER_IP, VIDEO_PORT)
+USER_STATE_ADDR = (USER_IP, STATE_PORT)
 
 # Socket object 
 control_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # 
 control_udp.bind(RELAY_CMD_ADDR) # 
 
 video_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # 
-video_udp.bind(RELAY_STATE_ADDR) # 
+video_udp.bind(RELAY_VIDEO_ADDR) # 
 
 state_udp = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # 
 state_udp.bind(RELAY_STATE_ADDR) # 
 
 # sends the users control commands to the tello drone
 def forward_control_cmd():
-    data, addr = control_udp.recvfrom(BUFFER_SIZE) # recieve data from the user
-    control_udp.sendto(data, TELLO_ADDR) # sends cmd til tello drone
+    time.sleep(2)
+    run = 'command'
+    run = run.encode(FORMAT)
+    control_udp.sendto(run, TELLO_ADDR)
+    while True:
+        data, addr = control_udp.recvfrom(BUFFER_SIZE) # recieve data from the user
+        control_udp.sendto(data, TELLO_ADDR) # sends cmd til tello drone
+
+        print(data)
+        cmd = data.decode(FORMAT)
+        print(cmd)
    
 # sends the tello drones videofeed to the user
 def backward_videofeed():
-    data, addr = video_udp.recvfrom(BUFFER_SIZE) # recieve data from the tello drone
-    video_udp.sendto(data, USER_VIDEO_ADDR) # sends videofeed to the user
+    while True:
+        data, addr = video_udp.recvfrom(BUFFER_SIZE) # recieve data from the tello drone
+        video_udp.sendto(data, USER_VIDEO_ADDR) # sends videofeed to the user
+
+        print(data)
   
+
 # sends state info from tello drone to the user
 def backward_state():
-    data, addr = state_udp.recvfrom(BUFFER_SIZE) # recieve data from the tello drone
-    state_udp.sendto(data, USER_STATE_ADDR) # sends state info to the user         
+    while True:
+        data, addr = state_udp.recvfrom(BUFFER_SIZE) # recieve data from the tello drone
+        state_udp.sendto(data, USER_STATE_ADDR) # sends state info to the user 
+
+        #state = data.decode(FORMAT)
+        #print(state)
+
 
 
 # main program
