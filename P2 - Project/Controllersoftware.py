@@ -11,7 +11,7 @@ FORMAT = 'utf-8'
 HOST = ''
 PORT = 9400
 UDP_RELAY = (HOST,PORT)
-TELLO_ADDR = ('192.168.10.1', 8889)
+TELLO_ADDR = ('192.168.1.133', 8889)
 
 dataStats = []
 
