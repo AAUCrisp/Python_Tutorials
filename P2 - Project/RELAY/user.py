@@ -12,7 +12,7 @@ s = socket(AF_INET,SOCK_DGRAM)
 s.sendto(bytes('takeoff','utf-8'),(SERVER_IP,SERVER_PORT))
 print("Data sent.")
 
-time.sleep(5000)
 
-while True:
-s.sendto(bytes('land','utf-8'),(SERVER_IP,SERVER_PORT))
+
+hey = 118613842 % 9091
+print(hey)
